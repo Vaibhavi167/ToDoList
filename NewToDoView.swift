@@ -10,8 +10,13 @@ import SwiftData
 
 struct NewToDoView: View {
     
+    @Binding var showNewTask: Bool
+    
     //referencing the ___ and linking it together
     @Bindable var toDoItem: ToDoItem
+    
+    //to access the ModelContext
+    @Environment(\.modelContext) var modelContext
     
     var body: some View {
         VStack {
@@ -30,7 +35,8 @@ struct NewToDoView: View {
             }
             
             Button("Save"){
-                
+                addToDo()
+                showNewTask = false
             }
             .font(.title)
             .fontWeight(.bold)
@@ -38,8 +44,16 @@ struct NewToDoView: View {
         }
         .padding()
     }
+    
+    func addToDo() {
+        let toDo = ToDoItem(title: toDoItem.title, isImportant: toDoItem.isImportant)
+        modelContext.insert(toDo)
+    }
+    
+    
 }
 
 #Preview {
-    NewToDoView(toDoItem: ToDoItem(title: "", isImportant: false))
+    NewToDoView(showNewTask: .constant(false), toDoItem: ToDoItem(title: "", isImportant: false))
 }
+

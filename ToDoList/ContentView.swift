@@ -39,14 +39,22 @@ struct ContentView: View {
         
         List {
             ForEach(toDos) { toDoItem in
-                Text(toDoItem.title)
+                if toDoItem.isImportant
+                {
+                    Text("‼️" + toDoItem.title)
+                }
+                else
+                {
+                    Text(toDoItem.title)
+                }
             }
         }
+        .listStyle(.plain)
         
         //connecting the views
         //shows up at the bottom since it is at the bottom of the contentView underneath the VStack
         if showNewTask {
-            NewToDoView(toDoItem: ToDoItem(title: "", isImportant: false))
+            NewToDoView(showNewTask: $showNewTask, toDoItem: ToDoItem(title: "", isImportant: false))
         }
         
     }
@@ -54,4 +62,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+        .modelContainer(for: ToDoItem.self, inMemory: true)
 }
