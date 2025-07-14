@@ -6,12 +6,14 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct ContentView: View {
     
     //property
     @State private var showNewTask = false
     
+    @Query var toDos: [ToDoItem]
     
     var body: some View {
         VStack {
@@ -30,11 +32,16 @@ struct ContentView: View {
                         .font(.title)
                         .fontWeight(.bold)
                 }
-                
             }
         }
         .padding()
         Spacer()
+        
+        List {
+            ForEach(toDos) { toDoItem in
+                Text(toDoItem.title)
+            }
+        }
         
         //connecting the views
         //shows up at the bottom since it is at the bottom of the contentView underneath the VStack
