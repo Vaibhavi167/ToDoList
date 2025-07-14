@@ -46,7 +46,7 @@ struct ContentView: View {
         //connecting the views
         //shows up at the bottom since it is at the bottom of the contentView underneath the VStack
         if showNewTask {
-            NewToDoView()
+            NewToDoView(toDoItem: ToDoItem(title: "", isImportant: false))
         }
         
     }
